@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void le_alunos(int* matriculas, char** nomes, int *n){
+void le_alunos(int* matriculas, char* nomes[50], int *n){
 	int mat;
 	char c;
 	char nome[50];
