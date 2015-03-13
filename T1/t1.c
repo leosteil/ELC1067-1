@@ -47,10 +47,11 @@ void le_notas(int* matriculasNota, float* media){
 	        }  
                 
         }
+        fclose(f);
 }
 
 void media_alunos(int* n, char* busca, char nomes[][50], int* matriculasAlunos, int* matriculasNota, float* media){
-  int i=0,j;
+  int i,j;
         for(i=0;i<*n;i++){
                 j=0; 
              if(strstr(nomes[i],busca) != NULL){//avalia se contém algum nome relacionado com a busca
