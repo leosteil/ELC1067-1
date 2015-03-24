@@ -46,7 +46,7 @@ int main(int argc, char**argv){//pega a busca em linha de comando
 		  strcpy(nomes[linha],vet);//copia do vetor para a matriz
 
 		  if( matriculasAluno == NULL || nomes == NULL || vet == NULL ) {
-			puts("** Memória Insuficiênte **");
+			printf("** Memória Insuficiênte **");
 			exit(0);
 		    }	
 		  linha++;
@@ -81,19 +81,19 @@ int main(int argc, char**argv){//pega a busca em linha de comando
 	      }
 	  }
         for(i=0;i < n;i++){ 
-             if(strstr(nomes[i],busca) != NULL){//avalia se contém algum nome relacionado com a busca
+             if(strcasestr(nomes[i],busca) != NULL){//avalia se contém algum nome relacionado com a busca
                 while(matriculasAluno[i] != matriculasNota[j]){//verifica se a matricula é a mesma até achar
                         j++;
              }
                 printf("\nNome: %s Media: %.3f\n",nomes[i],media[j]); //imprime o vetor de medias correspondente ao nome do aluno
-	  }  
+	  }
       }
 	fclose(f);
 	
 	free(matriculasNota);
 	free(media);
 	free(matriculasAluno);
-	for(i=0;i < linha ;i++)
+	for(i=0;i <= linha ;i++)
 	  free(nomes[i]);
 	free(nomes);
   }
