@@ -82,6 +82,7 @@ int main(int argc, char**argv){//pega a busca em linha de comando
 	  }
         for(i=0;i < n;i++){ 
              if(strcasestr(nomes[i],busca) != NULL){//avalia se contém algum nome relacionado com a busca
+	       j=0;
                 while(matriculasAluno[i] != matriculasNota[j]){//verifica se a matricula é a mesma até achar
                         j++;
              }
