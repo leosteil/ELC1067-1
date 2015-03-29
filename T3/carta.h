@@ -1,14 +1,10 @@
-#ifndef _CARTA_H_
-#define _CARTA_H_
 /*
  * carta.h
- * TAD que implementa o tipo de dados carta, que representa uma carta
- * de baralho.
+ * Funçoes para criação de um TAD carta
  *
- * The MIT License (MIT)
+ *The MIT License (MIT)
  * 
  * Copyright (c) 2014, 2015 João V. Lima, UFSM
- *               2005       Benhur Stein, UFSM
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +24,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+#ifndef _CARTA_H_
+#define _CARTA_H_
  
 #include <stdlib.h> // para NULL
 #include <stdbool.h> // para bool
@@ -40,7 +39,7 @@ typedef enum {
     ESPADAS,
     COPAS,
     OUROS
-} naipe;
+} naipe; 
 
 typedef enum {
     AS = 1,
