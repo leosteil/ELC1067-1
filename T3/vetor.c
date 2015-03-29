@@ -64,30 +64,30 @@ int vetor_numelem(vetor_t *vet)
 
 void vetor_insere_carta(vetor_t *vet, int indice, carta c)
 {	
-	int  nCartas = vet->n - 1;
+	/*int  n_cartas = vet->n;
 	if(vet->baralho[indice] != NULL){
-	    while(nCartas != indice){
+	    while(n_cartas != indice){
 	      //if(indice == 49)
 		//memo_realoca(vet->baralho,100);
-	      vet->baralho[nCartas+1] = vet->baralho[nCartas];
-	      nCartas--;
+	      vet->baralho[n_cartas+1] = vet->baralho[n_cartas];
+	      n_cartas--;
 	    }
-	    vet->baralho[nCartas+1] = vet->baralho[nCartas];
+	    vet->baralho[n_cartas+1] = vet->baralho[n_cartas];
 	    vet->baralho[indice] = c;
-	}else{
+	}else{*/
 	      vet->baralho[indice] = c;
 	      vet->n++;
-    }
+    //}
 }
 
 carta vetor_remove_carta(vetor_t *vet, int indice)
 {
 	carta temp; 
 	temp = vet->baralho[indice];
-	//vet->baralho[indice] = NULL;
-	//free(vet->baralho[indice]);
+	int qtd = vet->n;
 	int i;
-	for(i=indice;i < vet->n;i++){
+	vet->baralho[indice] =NULL;
+	for(i=indice;i < qtd;i++){
 	  vet->baralho[i] = vet->baralho[i+1]; 
 	}
 	vet->n--;

@@ -61,7 +61,7 @@ int main(int argc, char** argv)
 	/* testa inserir/remover ao abrir cartas */
 	printf("1 - iniciando teste do vetor\n");
 	for(i= 0; i < ncartas; i++){
-		c = vetor_remove_carta( baralho, i );
+		c = vetor_remove_carta(baralho, i );
 		if(c == NULL){
 			printf("ERRO ao remover carta (pos=%d)\n", i);
 			exit(-1);
