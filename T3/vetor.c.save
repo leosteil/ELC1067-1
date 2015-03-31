@@ -1,21 +1,21 @@
 /*
  * vetor.c
  * TAD que implementa um vetor dinamico.
- *
+ * 
  * The MIT License (MIT)
- *
+ * 
  * Copyright (c) 2014, 2015 João V. Lima, UFSM
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -44,17 +44,17 @@ vetor_t* vetor_cria(void)
 	int i;
 	struct vetor *vet = (struct vetor*)memo_aloca(sizeof(struct vetor));
 	vet->n = 0;
-	vet->baralho = (carta*) memo_aloca(50*sizeof(carta));
-	for(i=0; i< 50;i++){
+	vet->baralho = (carta*) memo_aloca(10*sizeof(carta));
+	for(i=0; i< 10;i++){
 	  vet->baralho[i] = NULL;
-	}
+	}	
 	return vet;
 }
 
 void vetor_destroi(vetor_t* vet)
 {
 	memo_libera(vet->baralho);
-	memo_libera(vet);
+	memo_libera(vet);	
 }
 
 int vetor_numelem(vetor_t *vet)
@@ -63,12 +63,12 @@ int vetor_numelem(vetor_t *vet)
 }
 
 void vetor_insere_carta(vetor_t *vet, int indice, carta c)
-{
+{	
 	int  n_cartas = vet->n-1;
 	if(vet->baralho[indice] != NULL){
 	    while(n_cartas != indice){
-	      if(indice > 20)
-	        vet->baralho = memo_realoca(vet->baralho,100);
+	      //if(indice == 49)
+	      //vet->baralho = memo_realoca(vet->baralho,100);
 	      vet->baralho[n_cartas+1] = vet->baralho[n_cartas];
 	      n_cartas--;
 	    }
@@ -83,12 +83,13 @@ void vetor_insere_carta(vetor_t *vet, int indice, carta c)
 
 carta vetor_remove_carta(vetor_t *vet, int indice)
 {
-	carta temp;
+	carta temp; 
 	temp = vet->baralho[indice];
 	int qtd = vet->n;
 	int i;
+	//vet->baralho[indice] =NULL;
 	for(i=indice;i < qtd;i++){
-	  vet->baralho[i] = vet->baralho[i+1];
+	  vet->baralho[i] = vet->baralho[i+1]; 
 	}
 	vet->n--;
 	vet->baralho[vet->n]= NULL;
