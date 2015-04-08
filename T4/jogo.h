@@ -39,26 +39,33 @@ typedef struct {
     pilha ases[4];      // as 4 pilhas de cartas da saída
     pilha pilhas[7];    // as 7 pilhas principais do jogo
     tela tela;          // a tela onde sao desenhadas as cartas
-
-    /* acrescente mais variáveis ao jogo, se necessário */
-} jogo_t;
+}jogo_t;
 typedef jogo_t *jogo;
 
+/* Funções de Criação do jogo */
 jogo jogo_cria(void);
+
 void jogo_destroi(jogo);
 
 bool jogo_valido(jogo sol);
 
 /* acessores */
 tela jogo_tela(jogo sol);
+
 pilha jogo_monte(jogo sol);
+
 pilha jogo_descartes(jogo sol);
+
 pilha jogo_ases(jogo sol, int i);
+
 pilha jogo_pilha(jogo sol, int i);
 
 /* desenha a mesa do jogo */
 void jogo_desenha(jogo);
 
-/* acrescente mais funções ao jogo, se necessário */
+/* funções para mover de uma pilha para outra */
+void monte_to_descartes(jogo sol);
+
+void descartes_to_monte(jogo sol);
 #endif
 

@@ -53,8 +53,7 @@ void vetor_destroi(vetor_t* vet)
         memo_libera(vet);
 }
 
-int vetor_numelem(vetor_t *vet)
-{
+int vetor_numelem(vetor_t *vet){
         return vet->n;
 }
 
@@ -64,11 +63,12 @@ void vetor_insere_carta(vetor_t *vet, int indice, carta c)
         int i;
         
         if(indice >= 19 ){
-                vet->baralho = (carta*) memo_realoca(vet->baralho, 30*sizeof(vet->baralho));
-                for(i=indice; i< 30; i++){
+            vet->baralho = (carta*)
+            memo_realoca(vet->baralho,53*sizeof(vet->baralho));
+                for(i=indice; i< 53; i++){
                         vet->baralho[i] = NULL;
                 }
-              }
+        }
         while(n_cartas >= indice){
                 vet->baralho[n_cartas+1] = vet->baralho[n_cartas];
                 n_cartas--;

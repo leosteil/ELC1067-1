@@ -32,20 +32,18 @@
 #define SOLIT_MAGICO 0x50717
 #define DESTRUIDO 0x80000000
 
-bool 
-jogo_valido(jogo sol)
-{
+bool jogo_valido(jogo sol){
+  
 	if (sol == NULL || sol->magico != SOLIT_MAGICO) {
 		return false;
 	}
 	return true;
 }
 
-jogo 
-jogo_cria(void)
-{
-	jogo		sol;
-	int		i;
+jogo jogo_cria(void){
+  
+	jogo sol;
+	int  i;
 
 	sol = (jogo) memo_aloca(sizeof(jogo_t));
 	assert(sol != NULL);
@@ -64,19 +62,17 @@ jogo_cria(void)
 	return sol;
 }
 
-static void 
-jogo_destroi_pilha(pilha p)
-{
+static void jogo_destroi_pilha(pilha p){
+  
 	while (!pilha_vazia(p)) {
 		carta_destroi(pilha_remove_carta(p));
 	}
 	pilha_destroi(p);
 }
 
-void 
-jogo_destroi(jogo sol)
-{
-	int		i;
+void jogo_destroi(jogo sol){
+	
+	int i;
 	assert(jogo_valido(sol));
 	jogo_destroi_pilha(sol->monte);
 	jogo_destroi_pilha(sol->descartes);
@@ -92,39 +88,56 @@ jogo_destroi(jogo sol)
 }
 
 /* acessores */
-tela 
-jogo_tela(jogo sol)
-{
+tela jogo_tela(jogo sol){
+  
 	assert(jogo_valido(sol));
 	return sol->tela;
 }
 
-pilha 
-jogo_monte(jogo sol)
-{
+pilha jogo_monte(jogo sol){
+
 	assert(jogo_valido(sol));
 	return sol->monte;
 }
 
-pilha 
-jogo_descartes(jogo sol)
-{
+pilha jogo_descartes(jogo sol){
+  
 	assert(jogo_valido(sol));
 	return sol->descartes;
 }
 
-pilha 
-jogo_ases(jogo sol, int i)
-{
+pilha jogo_ases(jogo sol, int i){
+  
 	assert(jogo_valido(sol));
 	assert(i >= 0 && i < 4);
 	return sol->ases[i];
 }
 
-pilha 
-jogo_pilha(jogo sol, int i)
-{
+pilha jogo_pilha(jogo sol, int i){
+  
 	assert(jogo_valido(sol));
 	assert(i >= 0 && i < 7);
 	return sol->pilhas[i];
+}
+
+void monte_to_descartes(jogo sol){
+    
+  while(!pilha_vazia(jogo_monte(sol))){		
+	tela_le(jogo_tela(sol));
+	carta c = pilha_remove_carta(jogo_monte(sol));
+	carta_abre(c);
+	pilha_insere_carta(jogo_descartes(sol), c);
+	jogo_desenha(sol);
+  }
+}
+
+void descartes_to_monte(jogo sol){
+  
+  while(!pilha_vazia(jogo_descartes(sol))){
+	tela_le(jogo_tela(sol));
+	carta c = pilha_remove_carta(jogo_descartes(sol));
+	carta_fecha(c);
+	pilha_insere_carta(jogo_monte(sol), c);
+	jogo_desenha(sol);
+  }
 }

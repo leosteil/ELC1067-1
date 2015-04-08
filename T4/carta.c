@@ -71,7 +71,7 @@ char *carta_valor_str(carta c)
 	return cartas[(int)carta_valor(c)];
 }
 
-/* retorna o naipe da carta c. */
+/* retorna o naipe da 	carta c. */
 naipe carta_naipe(carta c)
 {
 	return c->t;
