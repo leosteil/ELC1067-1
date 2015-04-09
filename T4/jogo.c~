@@ -120,25 +120,31 @@ pilha jogo_pilha(jogo sol, int i){
 	return sol->pilhas[i];
 }
 
-void monte_to_descartes(jogo sol){		
+void monte_to_descartes(jogo sol,char tecla){		
+	while(!pilha_vazia(jogo_monte(sol))){	
+	if(tecla == ' '){
 	carta c = pilha_remove_carta(jogo_monte(sol));
 	carta_abre(c);
 	pilha_insere_carta(jogo_descartes(sol), c);
 	jogo_desenha(sol);
+  }
+ }
 }
 
-void descartes_to_monte(jogo sol){
+void descartes_to_monte(jogo sol,char tecla){
+  if(tecla == ' '){
     while(!pilha_vazia(jogo_descartes(sol))){
 	carta c = pilha_remove_carta(jogo_descartes(sol));
 	carta_fecha(c);
 	pilha_insere_carta(jogo_monte(sol), c);
 	jogo_desenha(sol);
-   }
+  }
+ }
 }
 
-void descartes_to_pilha(jogo solit, int nPilha){
+void descartes_to_pilha(jogo solit, int nPilha,char tecla){
 	pilha p = jogo_pilha(solit,nPilha);	
-	if(pilha_vazia(p)){
+	if(pilha_vazia(p) && tecla == '1'){
 		carta c = pilha_remove_carta(jogo_descartes(solit));
 		pilha_insere_carta(p, c);
 		jogo_desenha(solit);	

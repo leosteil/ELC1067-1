@@ -64,11 +64,11 @@ pilha jogo_pilha(jogo sol, int i);
 void jogo_desenha(jogo);
 
 /* funções para mover de uma pilha para outra */
-void monte_to_descartes(jogo sol);
+void monte_to_descartes(jogo sol, char tecla);
 
-void descartes_to_monte(jogo sol);
+void descartes_to_monte(jogo sol, char tecla);
 
-void descartes_to_pilha(jogo solit, int nPilha);
+void descartes_to_pilha(jogo solit, int nPilha, char tecla);
 
 #endif
 
