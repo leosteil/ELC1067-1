@@ -70,7 +70,11 @@ void descartes_to_monte(jogo sol);
 
 void descartes_to_pilha(jogo solit, int nPilha);
 
+void descartes_to_pilhaAses(jogo solit, int nPilhaAS, carta ct);
+
 void pilha_to_pilha(jogo solit, int nPilha1, int nPilha2);
+
+void pilha_to_pilhaAses(jogo solit,int nPilha1,int nPilhaAS ,carta ct);
 
 void select_pilhas(jogo solit,int nPilha1,char tecla);
 

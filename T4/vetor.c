@@ -41,8 +41,8 @@ vetor_t* vetor_cria(void)
         int i;
         vetor_t *vet = (vetor_t*)memo_aloca(sizeof(vetor_t));
         vet->n = 0;
-        vet->baralho = (carta*) memo_aloca(20*sizeof(carta));
-        for(i=0; i< 20;i++){
+        vet->baralho = (carta*) memo_aloca(52*sizeof(carta));
+        for(i=0; i< 52;i++){
                 vet->baralho[i] = NULL;
         }
         return vet;
@@ -63,13 +63,12 @@ void vetor_insere_carta(vetor_t *vet, int indice, carta c)
         int n_cartas = vet->n;
         int i;
         
-        if(indice >= 19 ){
-            vet->baralho = (carta*)
-            memo_realoca(vet->baralho,53*sizeof(vet->baralho));
+        /*if(indice == 19 ){
+	  vet->baralho = (carta*) memo_realoca(vet->baralho,53*sizeof(vet->baralho));
                 for(i=indice; i< 53; i++){
                         vet->baralho[i] = NULL;
                 }
-        }
+        }*/
         while(n_cartas >= indice){
                 vet->baralho[n_cartas+1] = vet->baralho[n_cartas];
                 n_cartas--;

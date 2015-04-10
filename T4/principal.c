@@ -34,6 +34,7 @@
 #include "vetor.h"
 #include "fila.h"
 #include "pilha.h"
+#include "carta.h"
 
 void inicia_jogo(jogo solit){
   
@@ -61,7 +62,7 @@ void inicia_jogo(jogo solit){
    
    for(i=0; i<7; i++){
 	  for(j=0; j<=i; j++){
-		 c= vetor_remove_carta(fora_ordem, 0);
+		 c = vetor_remove_carta(fora_ordem, 0);
 		 pilha_insere_carta(jogo_pilha(solit, i), c);
 	  }
 	  carta_abre(c);
@@ -75,12 +76,13 @@ void inicia_jogo(jogo solit){
 }
 
 int main(void){
+	carta ct;
 	jogo solit;
 	solit = jogo_cria();
 	inicia_jogo(solit);	
 	jogo_desenha(solit);
 	
-	while(pilha_vazia(jogo_ases(solit,0))){	
+while(pilha_valida(jogo_pilha(solit,6))){	
 		char tecla = tela_le(jogo_tela(solit));
 		switch(tecla){
 		  case ' ' : //passa as cartas do monte para o descartes
@@ -112,6 +114,37 @@ int main(void){
 		      case '6':
 			  descartes_to_pilha(solit,6);
 		      break;
+		      case 'q':
+			  ct = pilha_remove_carta(jogo_descartes(solit)); 
+			  if(carta_valor(ct) == 1 && pilha_vazia(jogo_ases(solit,0))){
+			    pilha_insere_carta(jogo_ases(solit,0),ct); 
+			    jogo_desenha(solit);
+			  }else
+			    descartes_to_pilhaAses(solit,0,ct);
+		      break;
+		      case 'w':
+			  ct = pilha_remove_carta(jogo_descartes(solit));  
+			  if(carta_valor(ct) == 1 && pilha_vazia(jogo_ases(solit,1))){
+			    pilha_insere_carta(jogo_ases(solit,1),ct); jogo_desenha(solit); 
+			    jogo_desenha(solit);
+			  }else
+			    descartes_to_pilhaAses(solit,1,ct);
+		      break;
+		      case 'e':
+			  ct = pilha_remove_carta(jogo_descartes(solit));  
+			  if(carta_valor(ct) == 1 && pilha_vazia(jogo_ases(solit,2))){
+			    pilha_insere_carta(jogo_ases(solit,2),ct); 
+			    jogo_desenha(solit);
+			  }else
+			    descartes_to_pilhaAses(solit,2,ct);
+		      break;
+		      case 'r':
+			  ct = pilha_remove_carta(jogo_descartes(solit));  
+			  if(carta_valor(ct) == 1 && pilha_vazia(jogo_ases(solit,3))){
+			    pilha_insere_carta(jogo_ases(solit,3),ct); jogo_desenha(solit);
+			  }else
+			    descartes_to_pilhaAses(solit,3,ct);
+		      break;    
 		   }
 		  case '0'://move da pilha zero para outra pilha qualquer 
 		      tecla = tela_le(jogo_tela(solit));
@@ -142,8 +175,8 @@ int main(void){
 		    select_pilhas(solit,6,tecla);
 		  break;
 	}
-    }
-	tela_le(jogo_tela(solit));
+}
+
 	jogo_destroi(solit);
 	
 	/* relatório de memória */
