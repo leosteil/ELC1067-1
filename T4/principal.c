@@ -74,37 +74,78 @@ void inicia_jogo(jogo solit){
    vetor_destroi(fora_ordem);
 }
 
-int main(int argc, char **argv)
-{
+int main(void){
 	jogo solit;
 	solit = jogo_cria();
-	inicia_jogo(solit);
-	
-
-
+	inicia_jogo(solit);	
 	jogo_desenha(solit);
 	
-	while(pilha_vazia(jogo_ases(solit))){	
+	while(pilha_vazia(jogo_ases(solit,0))){	
 		char tecla = tela_le(jogo_tela(solit));
 		switch(tecla){
-		  case '1' :
-		    descartes_to_pilha(solit,0);
+		  case ' ' : //passa as cartas do monte para o descartes
+		    monte_to_descartes(solit);
+		    if(pilha_vazia(jogo_monte(solit)))
+		      descartes_to_monte(solit); 
 		    break;
-		  case  ' ' :
-		    monte_to_descartes(solit);//passa as cartas do monte para o descartes
-		    descartes_to_monte(solit); 
-		    break;
-		  
-		}
+		  case 'd': //passa as cartas do descartes para as pilhas
+		    tecla = tela_le(jogo_tela(solit));
+		    switch(tecla){
+		      case '0':   
+			  descartes_to_pilha(solit,0);
+		      break;
+		      case '1':
+			  descartes_to_pilha(solit,1);
+		      break;
+		      case '2':
+			  descartes_to_pilha(solit,2);
+		      break;
+		      case '3':
+			  descartes_to_pilha(solit,3);
+		      break;
+		      case '4':
+			  descartes_to_pilha(solit,4);
+		      break;
+		      case '5':
+			  descartes_to_pilha(solit,5);
+		      break;
+		      case '6':
+			  descartes_to_pilha(solit,6);
+		      break;
+		   }
+		  case '0'://move da pilha zero para outra pilha qualquer 
+		      tecla = tela_le(jogo_tela(solit));
+		      select_pilhas(solit,0,tecla);
+		  break;  
+ 		  case '1'://move da pilha 1 para outra pilha qualquer
+		     tecla = tela_le(jogo_tela(solit));
+		     select_pilhas(solit,1,tecla);
+		  break;
+		  case '2':
+		    tecla = tela_le(jogo_tela(solit));
+		    select_pilhas(solit,2,tecla);
+		  break;
+		  case '3':
+		    tecla = tela_le(jogo_tela(solit));
+		    select_pilhas(solit,3,tecla);
+		  break;
+		  case '4':
+		    tecla = tela_le(jogo_tela(solit));
+		    select_pilhas(solit,4,tecla);
+		  break;
+		  case '5':
+		    tecla = tela_le(jogo_tela(solit));
+		    select_pilhas(solit,5,tecla);
+		  break;
+		  case '6':
+		    tecla = tela_le(jogo_tela(solit));
+		    select_pilhas(solit,6,tecla);
+		  break;
 	}
-		
-		
-	
-		
-     
+    }
 	tela_le(jogo_tela(solit));
 	jogo_destroi(solit);
-
+	
 	/* relatório de memória */
 	memo_relatorio();
 	return 0;
