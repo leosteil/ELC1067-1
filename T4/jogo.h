@@ -64,6 +64,8 @@ pilha jogo_pilha(jogo sol, int i);
 void jogo_desenha(jogo);
 
 /* funções para mover de uma pilha para outra */
+void desvira_carta(jogo solit, pilha p);
+
 void monte_to_descartes(jogo sol);
 
 void descartes_to_monte(jogo sol);

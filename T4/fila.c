@@ -86,3 +86,7 @@ bool fila_valida(fila f)
 {
 	return ((f != NULL) && (f->vet != NULL));
 }
+
+int acessa_topo(fila f){
+  return f->topo;
+}

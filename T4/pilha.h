@@ -54,4 +54,6 @@ carta pilha_remove_carta(pilha p);
 /* retorna true se p for uma pilha válida */
 bool pilha_valida(pilha p);
 
+int retorna_topo(pilha p);
+
 #endif

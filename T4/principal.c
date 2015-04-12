@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 #include "memo.h"
 #include "jogo.h"
@@ -67,7 +68,7 @@ void inicia_jogo(jogo solit){
 	  }
 	  carta_abre(c);
    }
-	for(i=0; i<vetor_numelem(fora_ordem); i++){
+	for(i=0; i<24; i++){
 		 c = vetor_remove_carta(fora_ordem, 0);
 		 pilha_insere_carta(jogo_monte(solit), c);
    }   
@@ -75,20 +76,31 @@ void inicia_jogo(jogo solit){
    vetor_destroi(fora_ordem);
 }
 
+bool termina_jogo(jogo solit){
+  int i,cont=0; 
+  for(i=0;i<4;i++){
+    if(retorna_topo(jogo_ases(solit,i)) == 13)
+      cont++;
+  }
+  return cont==4;
+}
+
 int main(void){
 	carta ct;
+	char tecla;
 	jogo solit;
 	solit = jogo_cria();
 	inicia_jogo(solit);	
 	jogo_desenha(solit);
 	
-while(pilha_valida(jogo_pilha(solit,6))){	
-		char tecla = tela_le(jogo_tela(solit));
+	
+while(!termina_jogo(solit) && tecla != 's'){	
+		tecla = tela_le(jogo_tela(solit));
 		switch(tecla){
 		  case ' ' : //passa as cartas do monte para o descartes
-		    monte_to_descartes(solit);
 		    if(pilha_vazia(jogo_monte(solit)))
-		      descartes_to_monte(solit); 
+		      descartes_to_monte(solit);
+		    monte_to_descartes(solit); 
 		    break;
 		  case 'd': //passa as cartas do descartes para as pilhas
 		    tecla = tela_le(jogo_tela(solit));
@@ -176,7 +188,8 @@ while(pilha_valida(jogo_pilha(solit,6))){
 		  break;
 	}
 }
-
+	tela_limpa(jogo_tela(solit));
+	
 	jogo_destroi(solit);
 	
 	/* relatório de memória */

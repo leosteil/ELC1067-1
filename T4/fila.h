@@ -54,4 +54,6 @@ carta fila_remove_carta(fila f);
 /* retorna true se f for uma fila válida */
 bool fila_valida(fila f);
 
+int acessa_topo(fila f);
+
 #endif

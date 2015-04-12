@@ -68,3 +68,7 @@ bool pilha_valida(pilha p)
 {
 	return ((p != NULL) && (p->topo != NULL));
 }
+
+int retorna_topo(pilha p){
+  return acessa_topo(p->topo);
+}
