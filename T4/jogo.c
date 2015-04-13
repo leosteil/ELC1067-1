@@ -203,12 +203,17 @@ void pilha_to_pilha(jogo solit, int nPilha1, int nPilha2){
 	  }
 	    desvira_carta(solit, p1);
   }else{
-	  while(carta_aberta(c1)){
+	  carta c2 = pilha_remove_carta(p2);
+	  while(!pilha_vazia(p1) && carta_aberta(c1)){
+	    if(carta_valor(c1) == (carta_valor(c2)-1) && carta_naipe(c1) != carta_naipe(c2))
+	      break;
 	    pilha_insere_carta(pAux, c1);
 	    c1 = pilha_remove_carta(p1);
 	  }
+	  if(!carta_aberta(c1))
 	    pilha_insere_carta(p1,c1);
-	    carta c2 = pilha_remove_carta(p2);
+	  else
+	    pilha_insere_carta(pAux,c1);	 
 	    c1 = pilha_remove_carta(pAux);    	
 	if(carta_valor(c1) == (carta_valor(c2)-1) && carta_naipe(c1) != carta_naipe(c2)){
 	    pilha_insere_carta(p2,c2);
@@ -220,12 +225,12 @@ void pilha_to_pilha(jogo solit, int nPilha1, int nPilha2){
 	  }
 	    jogo_desenha(solit);
 	}else{
+	  pilha_insere_carta(p2,c2);
+	  pilha_insere_carta(p1, c1); 
 	  while(!pilha_vazia(pAux)){
 	    c1 = pilha_remove_carta(pAux);
 	    pilha_insere_carta(p1, c1); 
 	  }
-	    pilha_insere_carta(p2,c2);
-	    pilha_insere_carta(p1, c1);
 	    jogo_desenha(solit);
 	    printw("\nJogada Inválida\n");
 	    tela_atualiza(jogo_tela(solit));
