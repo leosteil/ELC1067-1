@@ -27,6 +27,7 @@ void jogo_desenha_linhas(jogo sol, posicao pos, char *l[])
 
 void jogo_desenha_espaco(jogo sol, posicao pos)
 {
+    
     char *linhas[] = {
         ". . . .",
         ".     .",
@@ -108,17 +109,25 @@ void jogo_desenha_pilha(jogo sol, posicao pos, pilha p)
 
 void jogo_desenha(jogo sol)
 {
+   
+    
     int i;
-    posicao posmonte = { 1, 5 };
-    posicao posdescartes = { 1, 15 };
-    posicao posases[] = { { 1, 30 }, { 1, 40 }, { 1, 50 }, { 1, 60 } };
-    posicao pospilha[] = { { 7,  5 }, { 7, 15 }, { 7, 25 }, { 7, 35 },
-                           { 7, 45 }, { 7, 55 }, { 7, 65 } };
+    posicao posmonte = { 6, 5 };
+    posicao posdescartes = { 6, 15 };
+    posicao posases[] = { { 6, 30 }, { 6, 40 }, { 6, 50 }, { 6, 60 } };
+    posicao pospilha[] = { { 11,  5 }, { 11, 15 }, { 11, 25 }, { 11, 35 },
+                           { 11, 45 }, { 11, 55 }, { 11, 65 } };
 
     assert(jogo_valido(sol));
     
     tela_limpa(jogo_tela(sol));
     
+    printw("Monte to Descartes press: SPACE ");
+    printw("\nDescartes to Pilhas press: 'd' + '1' || '2' || '3' || '4' || '5' || '6' || '7'");
+    printw("\nDescartes to Ases press: 'd' + 'q' || 'w' || 'e' || 'r'");
+    printw("\nPilha to Pilha press: select any pilha (1 on 7) and select destiny pilha (1 on 7) || to Ases (q on r)");
+    printw("\nAses to Pilha press: select any Ases (q on r) and select destiny pilha (1 on 7)");
+    printw("\t\t\t\tTo quit press: ESC");
     jogo_desenha_topo(sol, posmonte, jogo_monte(sol));
     jogo_desenha_topo(sol, posdescartes, jogo_descartes(sol));
     for (i = 0; i < 4; i++) {

@@ -37,13 +37,12 @@
 #include "pilha.h"
 #include "carta.h"
 
-void inicia_jogo(jogo solit){
+void inicia_jogo(jogo solit, carta c){
   
    vetor_t* cartas = vetor_cria();
    vetor_t* fora_ordem = vetor_cria();
    srand(time(NULL));
    int i,j;
-   carta c;
    
    for(i=0; i<=3; i++){
 	  for(j=1; j<=13; j++){
@@ -52,7 +51,7 @@ void inicia_jogo(jogo solit){
 	  }
    }
    
-   for(i=0; i < 52; i++){//retira da sequencia e insere fora de ordem as cartas
+   for(i=0; i <52; i++){//retira da sequencia e insere fora de ordem as cartas
 	 
 	  do{//testa se naquela posição já foi inserido/retirado
 	    j = ((int) rand())%vetor_numelem(cartas);
@@ -85,16 +84,42 @@ bool termina_jogo(jogo solit){
   return cont==4;
 }
 
+void tela_final(jogo solit, tela t, char tecla){
+  if(tecla == 27){
+    initscr();
+    int x,y;
+    tela_muda_cor(t,vermelho);
+    getmaxyx(stdscr,y,x);
+    move(y/2,x/2);
+    printw("GAME OVER");
+    getch();
+    noecho();
+    refresh();
+    endwin();
+  }else{
+    initscr();
+    int x,y;
+    tela_muda_cor(t,verde);
+    getmaxyx(stdscr,y,x);
+    move(y/2,x/2);
+    printw("CONGRATULATIONS YOU WIN !! :) ");
+    getch();
+    noecho();
+    refresh();
+    endwin();
+  }
+  
+}
+
 int main(void){
 	carta ct;
 	char tecla;
 	jogo solit;
 	solit = jogo_cria();
-	inicia_jogo(solit);	
+	inicia_jogo(solit,ct);	
 	jogo_desenha(solit);
 	
-	
-while(!termina_jogo(solit) && tecla != 's'){	
+while(!termina_jogo(solit) && tecla != 27){	
 		tecla = tela_le(jogo_tela(solit));
 		switch(tecla){
 		  case ' ' : //passa as cartas do monte para o descartes
@@ -103,92 +128,84 @@ while(!termina_jogo(solit) && tecla != 's'){
 		    monte_to_descartes(solit); 
 		    break;
 		  case 'd': //passa as cartas do descartes para as pilhas
-		    tecla = tela_le(jogo_tela(solit));
-		    switch(tecla){
-		      case '0':   
-			  descartes_to_pilha(solit,0);
-		      break;
-		      case '1':
-			  descartes_to_pilha(solit,1);
-		      break;
-		      case '2':
-			  descartes_to_pilha(solit,2);
-		      break;
-		      case '3':
-			  descartes_to_pilha(solit,3);
-		      break;
-		      case '4':
-			  descartes_to_pilha(solit,4);
-		      break;
-		      case '5':
-			  descartes_to_pilha(solit,5);
-		      break;
-		      case '6':
-			  descartes_to_pilha(solit,6);
-		      break;
-		      case 'q':
-			  ct = pilha_remove_carta(jogo_descartes(solit)); 
-			  if(carta_valor(ct) == 1 && pilha_vazia(jogo_ases(solit,0))){
-			    pilha_insere_carta(jogo_ases(solit,0),ct); 
-			    jogo_desenha(solit);
-			  }else
-			    descartes_to_pilhaAses(solit,0,ct);
-		      break;
-		      case 'w':
-			  ct = pilha_remove_carta(jogo_descartes(solit));  
-			  if(carta_valor(ct) == 1 && pilha_vazia(jogo_ases(solit,1))){
-			    pilha_insere_carta(jogo_ases(solit,1),ct); jogo_desenha(solit); 
-			    jogo_desenha(solit);
-			  }else
-			    descartes_to_pilhaAses(solit,1,ct);
-		      break;
-		      case 'e':
-			  ct = pilha_remove_carta(jogo_descartes(solit));  
-			  if(carta_valor(ct) == 1 && pilha_vazia(jogo_ases(solit,2))){
-			    pilha_insere_carta(jogo_ases(solit,2),ct); 
-			    jogo_desenha(solit);
-			  }else
-			    descartes_to_pilhaAses(solit,2,ct);
-		      break;
-		      case 'r':
-			  ct = pilha_remove_carta(jogo_descartes(solit));  
-			  if(carta_valor(ct) == 1 && pilha_vazia(jogo_ases(solit,3))){
-			    pilha_insere_carta(jogo_ases(solit,3),ct); jogo_desenha(solit);
-			  }else
-			    descartes_to_pilhaAses(solit,3,ct);
-		      break;    
-		   }
-		  case '0'://move da pilha zero para outra pilha qualquer 
+		    if(pilha_vazia(jogo_descartes(solit)))
+		      printw("\n\nJogada Inválida Pilha vazia");
+		    else{
+		    tecla = tela_le(jogo_tela(solit)); 
+		    select_pilhas_descartes(solit,tecla);
+		    } 
+		  break;
+		  case '1'://move da pilha zero para outra pilha qualquer 
 		      tecla = tela_le(jogo_tela(solit));
 		      select_pilhas(solit,0,tecla);
 		  break;  
- 		  case '1'://move da pilha 1 para outra pilha qualquer
+ 		  case '2'://move da pilha 1 para outra pilha qualquer
 		     tecla = tela_le(jogo_tela(solit));
 		     select_pilhas(solit,1,tecla);
 		  break;
-		  case '2':
+		  case '3':
 		    tecla = tela_le(jogo_tela(solit));
 		    select_pilhas(solit,2,tecla);
 		  break;
-		  case '3':
+		  case '4':
 		    tecla = tela_le(jogo_tela(solit));
 		    select_pilhas(solit,3,tecla);
 		  break;
-		  case '4':
+		  case '5':
 		    tecla = tela_le(jogo_tela(solit));
 		    select_pilhas(solit,4,tecla);
 		  break;
-		  case '5':
+		  case '6':
 		    tecla = tela_le(jogo_tela(solit));
 		    select_pilhas(solit,5,tecla);
 		  break;
-		  case '6':
+		  case '7':
 		    tecla = tela_le(jogo_tela(solit));
 		    select_pilhas(solit,6,tecla);
+		  break;
+		  case 'q':
+		    if(pilha_vazia(jogo_ases(solit,0))){
+ 		      	printw("\n\nJogada Inválida Pilha vazia");
+ 		    }else{  
+			tecla = tela_le(jogo_tela(solit));
+			ct = pilha_remove_carta(jogo_ases(solit,0));
+			select_pilhasAses(solit,0,tecla, ct);
+		    }
+		  break;
+		  case 'w':
+		     if(pilha_vazia(jogo_ases(solit,1))){
+ 		      	printw("\n\nJogada Inválida Pilha vazia");
+ 		    }else{  
+			tecla = tela_le(jogo_tela(solit));
+			ct = pilha_remove_carta(jogo_ases(solit,1));
+			select_pilhasAses(solit,1,tecla, ct);
+		    }
+		  break;
+		  case 'e':
+		     if(pilha_vazia(jogo_ases(solit,2))){
+ 		      	printw("\n\nJogada Inválida Pilha vazia");
+ 		    }else{  
+			tecla = tela_le(jogo_tela(solit));
+			ct = pilha_remove_carta(jogo_ases(solit,2));
+			select_pilhasAses(solit,2,tecla, ct);
+		    }
+		  break;
+		  case 'r':
+		     if(pilha_vazia(jogo_ases(solit,3))){
+ 		      	printw("\n\nJogada Inválida Pilha vazia");
+ 		    }else{  
+			tecla = tela_le(jogo_tela(solit));
+			ct = pilha_remove_carta(jogo_ases(solit,3));
+			select_pilhasAses(solit,3,tecla, ct);
+		    }
+		  break;
+		  default:
+		    printw("\n\n\nJogada Inválida ou tecla inutilizável\n");
 		  break;
 	}
 }
 	tela_limpa(jogo_tela(solit));
+	tela_final(solit,jogo_tela(solit),tecla);
 	
 	jogo_destroi(solit);
 	
