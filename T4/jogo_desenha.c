@@ -122,12 +122,12 @@ void jogo_desenha(jogo sol)
     
     tela_limpa(jogo_tela(sol));
     
-    printw("Monte to Descartes press: SPACE ");
+    printw("Monte to Descartes press: SPACE \tTo quit press: ESC ");
     printw("\nDescartes to Pilhas press: 'd' + '1' || '2' || '3' || '4' || '5' || '6' || '7'");
     printw("\nDescartes to Ases press: 'd' + 'q' || 'w' || 'e' || 'r'");
     printw("\nPilha to Pilha press: select any pilha (1 on 7) and select destiny pilha (1 on 7) || to Ases (q on r)");
     printw("\nAses to Pilha press: select any Ases (q on r) and select destiny pilha (1 on 7)");
-    printw("\t\t\t\tTo quit press: ESC");
+    
     jogo_desenha_topo(sol, posmonte, jogo_monte(sol));
     jogo_desenha_topo(sol, posdescartes, jogo_descartes(sol));
     for (i = 0; i < 4; i++) {

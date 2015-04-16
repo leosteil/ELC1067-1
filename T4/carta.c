@@ -66,7 +66,7 @@ valor carta_valor(carta c)
 char *carta_valor_str(carta c)
 {
 	static char* cartas[14] = {
-		"0", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "V", "D", "R"
+		"0", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"
 	};
 	return cartas[(int)carta_valor(c)];
 }

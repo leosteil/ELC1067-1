@@ -163,7 +163,7 @@ while(!termina_jogo(solit) && tecla != 27){
 		    tecla = tela_le(jogo_tela(solit));
 		    select_pilhas(solit,6,tecla);
 		  break;
-		  case 'q':
+		 case 'q':
 		    if(pilha_vazia(jogo_ases(solit,0))){
  		      	printw("\n\nJogada Inválida Pilha vazia");
  		    }else{  

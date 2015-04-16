@@ -1,3 +1,4 @@
+
 /*
  * jogo.c TAD que implementa o jogo de cartas "solitaire".
  * 
